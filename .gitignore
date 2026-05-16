@@ -1,0 +1,19 @@
+.DS_Store
+
+docs/
+specs/
+.venv/
+.env
+
+# AI
+CLAUDE.md
+AGENTS.md
+
+samples/
+specs/
+tests/
+
+# Python
+.pytest
+.pytest_cache
+scripts/

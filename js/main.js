@@ -14,23 +14,26 @@ document.querySelectorAll('#navLinks a').forEach(function (link) {
   });
 });
 
-// Contact form: build a mailto: link from field values and open it
+// Contact form: submit via Web3Forms and show inline confirmation
 const form = document.getElementById('contact-form');
 if (form) {
-  form.addEventListener('submit', function (e) {
+  form.addEventListener('submit', async function (e) {
     e.preventDefault();
-    const name    = document.getElementById('name').value.trim();
-    const email   = document.getElementById('email').value.trim();
-    const phone   = document.getElementById('phone').value.trim();
-    const message = document.getElementById('message').value.trim();
+    const btn = form.querySelector('.btn-submit');
+    if (btn) { btn.textContent = 'Sending…'; btn.disabled = true; }
 
-    const subject = encodeURIComponent('Beach House Bliss OC – Dog Sitting Inquiry');
-    const body    = encodeURIComponent(
-      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
-    );
+    const data = new FormData(form);
+    const res  = await fetch('https://api.web3forms.com/submit', {
+      method: 'POST', body: data
+    });
+    const json = await res.json();
 
-    window.location.href =
-      `mailto:terrisuzannelee@gmail.com?subject=${subject}&body=${body}`;
+    if (json.success) {
+      form.innerHTML = '<p class="form-success">Thanks! Terri will be in touch soon. 🐾</p>';
+    } else {
+      if (btn) { btn.textContent = 'Send Message ✨'; btn.disabled = false; }
+      alert('Something went wrong — please try again or call/text 949-375-1419.');
+    }
   });
 }
 

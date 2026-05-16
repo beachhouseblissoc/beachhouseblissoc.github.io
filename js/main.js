@@ -4,7 +4,7 @@
 const DAILY_RATE       = 120;
 const PUPPY_SURCHARGE  = 30;
 const LONG_STAY_DAYS   = 14;
-const LONG_STAY_PCT    = 0.20;
+const LONG_STAY_PCT    = 0.18;
 
 let checkinPicker, checkoutPicker;
 

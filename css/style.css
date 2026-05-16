@@ -427,6 +427,127 @@ section { padding: 5rem 2rem; }
 }
 .form-group textarea { resize: vertical; min-height: 110px; }
 
+/* Puppy checkbox */
+.checkbox-label {
+  display: flex;
+  align-items: center;
+  gap: 0.55rem;
+  font-family: Arial, sans-serif;
+  font-size: 0.93rem;
+  color: var(--text);
+  cursor: pointer;
+  user-select: none;
+}
+.checkbox-label input[type="checkbox"] { display: none; }
+.checkbox-box {
+  width: 20px;
+  height: 20px;
+  flex-shrink: 0;
+  border: 2px solid #E8D5C8;
+  border-radius: 6px;
+  background: var(--bg);
+  transition: background 0.15s, border-color 0.15s;
+  position: relative;
+}
+.checkbox-label input[type="checkbox"]:checked + .checkbox-box {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.checkbox-label input[type="checkbox"]:checked + .checkbox-box::after {
+  content: '';
+  position: absolute;
+  left: 4px; top: 1px;
+  width: 8px; height: 12px;
+  border: 2.5px solid white;
+  border-top: none; border-left: none;
+  transform: rotate(45deg);
+}
+.puppy-tag {
+  font-family: Arial, sans-serif;
+  font-size: 0.72rem;
+  font-weight: 700;
+  background: rgba(255,126,95,0.12);
+  color: var(--primary);
+  border-radius: 100px;
+  padding: 2px 8px;
+  letter-spacing: 0.3px;
+}
+
+/* Cost estimator panel */
+.cost-estimator {
+  display: none;
+  background: linear-gradient(135deg, rgba(255,126,95,0.06) 0%, rgba(254,180,123,0.06) 100%);
+  border: 2px solid #E8D5C8;
+  border-radius: var(--radius);
+  padding: 1.2rem 1.4rem;
+  margin-bottom: 1.2rem;
+}
+.cost-estimator.visible { display: block; }
+.cost-estimator-title {
+  font-family: Arial, sans-serif;
+  font-size: 0.75rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.8px;
+  color: var(--primary);
+  margin-bottom: 0.7rem;
+}
+.cost-line {
+  display: flex;
+  justify-content: space-between;
+  font-family: Arial, sans-serif;
+  font-size: 0.88rem;
+  color: var(--text-light);
+  padding: 0.18rem 0;
+}
+.cost-puppy    { color: var(--secondary); }
+.cost-discount { color: var(--accent); }
+.cost-divider  { border: none; border-top: 1px solid #E8D5C8; margin: 0.65rem 0; }
+.cost-total    { font-weight: 700; color: var(--text); font-size: 1rem; }
+.cost-deposit  { color: var(--primary); font-weight: 600; font-size: 0.9rem; }
+
+.form-row-dates {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+@media (max-width: 480px) {
+  .form-row-dates { grid-template-columns: 1fr; }
+}
+
+/* Flatpickr calendar theme — matches coastal sunrise palette */
+.flatpickr-calendar {
+  border-radius: var(--radius);
+  box-shadow: var(--shadow-lg);
+  border: 2px solid #E8D5C8;
+  font-family: Arial, sans-serif;
+}
+.flatpickr-day.selected,
+.flatpickr-day.selected:hover {
+  background: var(--primary);
+  border-color: var(--primary);
+}
+.flatpickr-day:hover {
+  background: #FFE8DC;
+  border-color: transparent;
+}
+.flatpickr-day.today {
+  border-color: var(--primary);
+}
+.flatpickr-months .flatpickr-month,
+.flatpickr-weekdays,
+span.flatpickr-weekday {
+  background: var(--grad);
+  color: white;
+  border-radius: 0;
+}
+.flatpickr-current-month .flatpickr-monthDropdown-months,
+.flatpickr-current-month input.cur-year {
+  color: white;
+}
+.flatpickr-prev-month svg,
+.flatpickr-next-month svg { fill: white; }
+
 .btn-submit {
   background: var(--grad);
   color: white;

@@ -6,6 +6,7 @@
   <meta name="description" content="Beach House Bliss OC — exclusive one-on-one dog sitting in a private home near Bolsa Chica State Beach and Huntington Harbour, Huntington Beach, CA. By Terri and Plum.">
   <title>Beach House Bliss OC Dog Sitting — Orange County, CA</title>
   <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
 </head>
 <body>
 
@@ -258,9 +259,51 @@
           <label for="phone">Phone Number</label>
           <input type="tel" id="phone" name="phone" placeholder="123-456-7890">
         </div>
+        <div class="form-row-dates">
+          <div class="form-group">
+            <label for="checkin">Check-In Date</label>
+            <input type="text" id="checkin" name="checkin" placeholder="Select date" autocomplete="off" required>
+          </div>
+          <div class="form-group">
+            <label for="checkout">Check-Out Date</label>
+            <input type="text" id="checkout" name="checkout" placeholder="Select date" autocomplete="off" required>
+          </div>
+        </div>
+        <div class="form-group">
+          <label class="checkbox-label">
+            <input type="checkbox" id="isPuppy" name="is_puppy" value="yes">
+            <span class="checkbox-box"></span>
+            Puppy or dog under 1 year old
+            <span class="puppy-tag">+$30/day</span>
+          </label>
+        </div>
+        <div id="cost-estimator" class="cost-estimator" aria-live="polite">
+          <div class="cost-estimator-title">Estimated Cost</div>
+          <div class="cost-line">
+            <span id="est-days-label"></span>
+            <span id="est-base-amount"></span>
+          </div>
+          <div id="est-puppy-line" class="cost-line cost-puppy" style="display:none">
+            <span id="est-puppy-label"></span>
+            <span id="est-puppy-amount"></span>
+          </div>
+          <div id="est-discount-line" class="cost-line cost-discount" style="display:none">
+            <span>Long-stay discount (20%)</span>
+            <span id="est-discount-amount"></span>
+          </div>
+          <hr class="cost-divider">
+          <div class="cost-line cost-total">
+            <span>Total Estimate</span>
+            <span id="est-total"></span>
+          </div>
+          <div class="cost-line cost-deposit">
+            <span>Deposit Due (50%)</span>
+            <span id="est-deposit"></span>
+          </div>
+        </div>
         <div class="form-group">
           <label for="message">Tell Us About Your Dog</label>
-          <textarea id="message" name="message" placeholder="Breed, age, desired dates, any special needs or medications…"></textarea>
+          <textarea id="message" name="message" placeholder="Breed, age, any special needs or medications…"></textarea>
         </div>
         <button type="submit" class="btn-submit">Send Message ✨</button>
       </form>
@@ -294,6 +337,7 @@
   </p>
 </footer>
 
+<script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 <script src="js/main.js"></script>
 </body>
 </html>

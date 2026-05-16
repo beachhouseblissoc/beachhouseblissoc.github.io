@@ -1,5 +1,77 @@
 // Beach House Bliss — main.js
 
+// Date pickers + cost estimator
+const DAILY_RATE       = 120;
+const PUPPY_SURCHARGE  = 30;
+const LONG_STAY_DAYS   = 14;
+const LONG_STAY_PCT    = 0.20;
+
+let checkinPicker, checkoutPicker;
+
+function updateEstimate() {
+  const estimator = document.getElementById('cost-estimator');
+  if (!checkinPicker || !checkoutPicker) return;
+
+  const ci = checkinPicker.selectedDates[0];
+  const co = checkoutPicker.selectedDates[0];
+  if (!ci || !co) { estimator.classList.remove('visible'); return; }
+
+  const days = Math.round((co - ci) / 86400000);
+  if (days <= 0) { estimator.classList.remove('visible'); return; }
+
+  const isPuppy  = document.getElementById('isPuppy').checked;
+  const base     = days * DAILY_RATE;
+  const puppy    = isPuppy ? days * PUPPY_SURCHARGE : 0;
+  const subtotal = base + puppy;
+  const isLong   = days >= LONG_STAY_DAYS;
+  const discount = isLong ? subtotal * LONG_STAY_PCT : 0;
+  const total    = subtotal - discount;
+
+  const fmt = v => '$' + v.toLocaleString('en-US', { minimumFractionDigits: 2, maximumFractionDigits: 2 });
+
+  document.getElementById('est-days-label').textContent    = days + ' day' + (days !== 1 ? 's' : '') + ' × $' + DAILY_RATE + '/day';
+  document.getElementById('est-base-amount').textContent   = fmt(base);
+  document.getElementById('est-puppy-label').textContent   = 'Puppy surcharge (' + days + ' × $' + PUPPY_SURCHARGE + ')';
+  document.getElementById('est-puppy-amount').textContent  = fmt(puppy);
+  document.getElementById('est-puppy-line').style.display  = isPuppy ? '' : 'none';
+  document.getElementById('est-discount-amount').textContent = '−' + fmt(discount);
+  document.getElementById('est-discount-line').style.display = isLong ? '' : 'none';
+  document.getElementById('est-total').textContent   = fmt(total);
+  document.getElementById('est-deposit').textContent = fmt(total * 0.5);
+
+  estimator.classList.add('visible');
+}
+
+(function () {
+  const today = new Date();
+  today.setHours(0, 0, 0, 0);
+
+  checkinPicker = flatpickr('#checkin', {
+    minDate: today,
+    dateFormat: 'M j, Y',
+    disableMobile: false,
+    onChange: function (selectedDates) {
+      if (selectedDates[0]) {
+        checkoutPicker.set('minDate', selectedDates[0]);
+        if (checkoutPicker.selectedDates[0] && checkoutPicker.selectedDates[0] < selectedDates[0]) {
+          checkoutPicker.clear();
+        }
+      }
+      updateEstimate();
+    }
+  });
+
+  checkoutPicker = flatpickr('#checkout', {
+    minDate: today,
+    dateFormat: 'M j, Y',
+    disableMobile: false,
+    onChange: updateEstimate
+  });
+
+  const puppyCheck = document.getElementById('isPuppy');
+  if (puppyCheck) puppyCheck.addEventListener('change', updateEstimate);
+}());
+
 // Mobile nav toggle
 document.getElementById('hamburger').addEventListener('click', function () {
   const nav = document.getElementById('navLinks');

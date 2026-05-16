@@ -39,6 +39,14 @@ function updateEstimate() {
   document.getElementById('est-total').textContent   = fmt(total);
   document.getElementById('est-deposit').textContent = fmt(total * 0.5);
 
+  // Populate hidden fields for form submission
+  document.getElementById('est-field-days').value     = days + ' day' + (days !== 1 ? 's' : '');
+  document.getElementById('est-field-base').value     = fmt(base);
+  document.getElementById('est-field-puppy').value    = isPuppy ? fmt(puppy) : '';
+  document.getElementById('est-field-discount').value = isLong  ? '−' + fmt(discount) : '';
+  document.getElementById('est-field-total').value    = fmt(total);
+  document.getElementById('est-field-deposit').value  = fmt(total * 0.5);
+
   estimator.classList.add('visible');
 }
 

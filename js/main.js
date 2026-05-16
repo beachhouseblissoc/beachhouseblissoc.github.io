@@ -14,16 +14,23 @@ document.querySelectorAll('#navLinks a').forEach(function (link) {
   });
 });
 
-// Contact form: show a simple thank-you message on submit
-// (Formspree handles the actual delivery — this improves UX for the redirect)
-const form = document.querySelector('form');
+// Contact form: build a mailto: link from field values and open it
+const form = document.getElementById('contact-form');
 if (form) {
-  form.addEventListener('submit', function () {
-    const btn = form.querySelector('.btn-submit');
-    if (btn) {
-      btn.textContent = 'Sending…';
-      btn.disabled = true;
-    }
+  form.addEventListener('submit', function (e) {
+    e.preventDefault();
+    const name    = document.getElementById('name').value.trim();
+    const email   = document.getElementById('email').value.trim();
+    const phone   = document.getElementById('phone').value.trim();
+    const message = document.getElementById('message').value.trim();
+
+    const subject = encodeURIComponent('Beach House Bliss OC – Dog Sitting Inquiry');
+    const body    = encodeURIComponent(
+      `Name: ${name}\nEmail: ${email}\nPhone: ${phone}\n\nMessage:\n${message}`
+    );
+
+    window.location.href =
+      `mailto:terrisuzannelee@gmail.com?subject=${subject}&body=${body}`;
   });
 }
 
